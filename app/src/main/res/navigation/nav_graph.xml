@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/gitReposFragment">
+
+    <fragment
+        android:id="@+id/gitReposFragment"
+        android:name="com.ehaquesoft.bs23androidtask101.ui.gitrepos.GitReposFragment"
+        android:label="Git Repositories"
+        tools:layout="@layout/gitrepos_fragment" >
+        <action
+            android:id="@+id/action_gitReposFragment_to_gitRepoDetailFragment"
+            app:destination="@id/gitReposDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/gitReposDetailFragment"
+        android:name="com.ehaquesoft.bs23androidtask101.ui.gitrepodetail.GitRepoDetailFragment"
+        android:label="Git Repository Details"
+        tools:layout="@layout/gitrepo_detail_fragment" />
+</navigation>
