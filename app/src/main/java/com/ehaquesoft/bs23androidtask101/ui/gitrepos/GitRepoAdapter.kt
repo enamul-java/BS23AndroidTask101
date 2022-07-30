@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.ehaquesoft.bs23androidtask101.data.dto.GitRepoDto
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepo
 import com.ehaquesoft.bs23androidtask101.databinding.ItemGitrepoBinding
 
 class GitReposAdapter(private val listener: GitReposItemListener) : RecyclerView.Adapter<GitReposViewHolder>() {
 
     interface GitReposItemListener {
-        fun onClickedGitRepo(characterId: Int)
+        //fun onClickedGitRepo(gitRepoId: Int, owner:String, repo:String)
+        //fun onClickedGitRepo(gitRepo: GitRepo)
+        fun onClickedGitRepo(gitRepo: GitRepoDto)
     }
 
     private val items = ArrayList<GitRepo>()
@@ -37,7 +40,7 @@ class GitReposAdapter(private val listener: GitReposItemListener) : RecyclerView
 class GitReposViewHolder(private val itemBinding: ItemGitrepoBinding, private val listener: GitReposAdapter.GitReposItemListener) : RecyclerView.ViewHolder(itemBinding.root),
     View.OnClickListener {
 
-    private lateinit var character: GitRepo
+    private lateinit var gitRepo: GitRepo
 
     init {
         itemBinding.root.setOnClickListener(this)
@@ -45,7 +48,7 @@ class GitReposViewHolder(private val itemBinding: ItemGitrepoBinding, private va
 
     @SuppressLint("SetTextI18n")
     fun bind(item: GitRepo) {
-        this.character = item
+        this.gitRepo = item
         itemBinding.name.text = item.name
         //itemBinding.speciesAndStatus.text = """${item.species} - ${item.status}"""
         Glide.with(itemBinding.root)
@@ -55,7 +58,25 @@ class GitReposViewHolder(private val itemBinding: ItemGitrepoBinding, private va
     }
 
     override fun onClick(v: View?) {
-        listener.onClickedGitRepo(character.id)
+        /*listener.onClickedGitRepo(gitRepo.id,
+            gitRepo.full_name.toString().substring(0, gitRepo.full_name!!.indexOf("/")),
+            gitRepo.full_name.toString().substring(gitRepo.full_name!!.indexOf("/"))
+        )*/
+        //listener.onClickedGitRepo(gitRepo)
+        listener.onClickedGitRepo(GitRepoDto(
+            gitRepo.description,
+            gitRepo.created_at,
+            gitRepo.updated_at,
+            gitRepo.watchers,
+            gitRepo.visibility,
+            gitRepo.forks_count,
+            gitRepo.language,
+            gitRepo.id,
+            gitRepo.name,
+            gitRepo.full_name,
+            gitRepo.html_url
+        ))
+
     }
 }
 

@@ -1,7 +1,8 @@
 package com.ehaquesoft.bs23androidtask101.data.remote
 
+import com.ehaquesoft.bs23androidtask101.data.entities.GitRepoDetails
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepoList
-import com.ehaquesoft.bs23androidtask101.data.entities.OwnerDetails
+import com.ehaquesoft.bs23androidtask101.data.entities.GitRepoOwner
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -31,9 +32,9 @@ interface GitRepoService {
          2. repo = name of repository
          Original URL : https://api.github.com/repos/chvin/react-tetris
      */
-    @GET("repos/{owner}/{repo}}")
+    @GET("repos/{owner}/{repo}")
     suspend fun getGirRepositoryDetails(
         @Path("owner") owner: String,
         @Path("repo") repo: String
-    ): Response<OwnerDetails>
+    ): Response<GitRepoDetails>
 }

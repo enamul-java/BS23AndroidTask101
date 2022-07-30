@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ehaquesoft.bs23androidtask101.R
+import com.ehaquesoft.bs23androidtask101.data.dto.GitRepoDto
+import com.ehaquesoft.bs23androidtask101.data.entities.GitRepo
 import com.ehaquesoft.bs23androidtask101.databinding.GitreposFragmentBinding
 import com.ehaquesoft.bs23androidtask101.utils.Resource
 import com.ehaquesoft.bs23androidtask101.utils.autoCleared
@@ -70,10 +72,18 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
         })
     }
 
-    override fun onClickedGitRepo(gitRepoId: Int) {
+    /*
+    override fun onClickedGitRepo(gitRepoId: Int, owner:String, repo:String) {
         findNavController().navigate(
             R.id.action_gitReposFragment_to_gitRepoDetailFragment,
-            bundleOf("id" to gitRepoId)
+            bundleOf("id" to gitRepoId, "owner" to owner, "repo" to repo)
+        )
+    }*/
+
+    override fun onClickedGitRepo(gitRepoDto: GitRepoDto) {
+        findNavController().navigate(
+            R.id.action_gitReposFragment_to_gitRepoDetailFragment,
+            bundleOf("gitrepo" to gitRepoDto)
         )
     }
 }
