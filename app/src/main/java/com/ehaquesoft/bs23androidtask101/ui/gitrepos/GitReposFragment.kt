@@ -74,10 +74,10 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
             setOnMenuItemClickListener {
                 //stars, forks, help-wanted-issues, updated
                     when (it.itemId) {
-                        R.id.stars -> sorting("stars")
-                        R.id.forks -> sorting("forks")
-                        R.id.issue -> sorting("help-wanted-issues")
-                        else -> sorting("updated")
+                        R.id.stars -> searching("stars")
+                        R.id.forks -> searching("forks")
+                        R.id.issue -> searching("help-wanted-issues")
+                        else -> searching("updated")
                     }
                 true
             }
@@ -96,7 +96,7 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
             builder.apply {
                 setPositiveButton(R.string.dialog_search,{ dialog, id ->
                        if(!editTextSearch.text.toString().isNullOrEmpty()){
-                           searching(editTextSearch.text.toString())
+                           sorting(editTextSearch.text.toString())
                            dialog.dismiss()
                        }else{
                            dialog.dismiss()

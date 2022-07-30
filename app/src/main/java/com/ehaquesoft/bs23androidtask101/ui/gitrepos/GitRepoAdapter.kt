@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.ehaquesoft.bs23androidtask101.data.dto.GitRepoDto
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepo
 import com.ehaquesoft.bs23androidtask101.databinding.ItemGitrepoBinding
+import com.ehaquesoft.bs23androidtask101.utils.ConverterUtil
 import com.ehaquesoft.bs23androidtask101.utils.DateUtils
 
 class GitReposAdapter(private val listener: GitReposItemListener) : RecyclerView.Adapter<GitReposViewHolder>() {
@@ -50,10 +51,14 @@ class GitReposViewHolder(private val itemBinding: ItemGitrepoBinding, private va
     @SuppressLint("SetTextI18n")
     fun bind(item: GitRepo) {
         this.gitRepo = item
-        itemBinding.name.text = item.name
-        itemBinding.speciesAndStatus.text = DateUtils.convertDate(item.updated_at)
+        itemBinding.name.text = ConverterUtil.emptyConvert(item.name)
+        itemBinding.language.text = ConverterUtil.emptyConvert(item.language)
+        itemBinding.fullName.text = ConverterUtil.emptyConvert(item.full_name)
+        itemBinding.visibilityFork.text = item.visibility + " Repository "+ ConverterUtil.emptyConvert(item.forks_count,"Total fork")
+        itemBinding.url.text = item.html_url
+        itemBinding.createAndUpdate.text = ConverterUtil.emptyConvert(DateUtils.convertDate(item.created_at),"Create on")+ ConverterUtil.emptyConvert(DateUtils.convertDate(item.updated_at),"Last Update")
         Glide.with(itemBinding.root)
-            .load("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
+            .load(ConverterUtil.languageImageUrl(item.language))
             .transform(CircleCrop())
             .into(itemBinding.image)
     }

@@ -14,6 +14,8 @@ import com.ehaquesoft.bs23androidtask101.data.dto.GitRepoDto
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepoOwner
 import com.ehaquesoft.bs23androidtask101.data.reqmodels.GitRepoOwnerRequestModel
 import com.ehaquesoft.bs23androidtask101.databinding.GitrepoDetailFragmentBinding
+import com.ehaquesoft.bs23androidtask101.utils.ConverterUtil
+import com.ehaquesoft.bs23androidtask101.utils.DateUtils
 import com.ehaquesoft.bs23androidtask101.utils.Resource
 import com.ehaquesoft.bs23androidtask101.utils.autoCleared
 import dagger.hilt.EntryPoint
@@ -85,10 +87,18 @@ class GitRepoDetailFragment: Fragment() {
 
     private fun bindGitRepoDetails(gitRepoOwner: GitRepoOwner?) {
         try {
-            binding.name.text = gitRepoDto.name
-            binding.description.text = gitRepoDto.description
-            binding.repoType.text = gitRepoDto.visibility
-            binding.updateOn.text = gitRepoDto.updated_at
+            binding.ownerName.text = ConverterUtil.emptyConvert(gitRepoOwner?.login, "By ")
+            binding.name.text = ConverterUtil.emptyConvert(gitRepoDto.name) +
+                    ConverterUtil.emptyConvert(gitRepoDto.language, "(", ")")
+            binding.visibility.text = gitRepoDto.visibility
+
+            binding.creat.text = ConverterUtil.emptyConvert(DateUtils.convertDate(gitRepoDto.created_at), "Create On")
+            binding.update.text = ConverterUtil.emptyConvert(DateUtils.convertDate(gitRepoDto.updated_at), "Last Update On")
+
+            binding.watchAndFork.text = ConverterUtil.emptyConvert(gitRepoDto.watchers, "Total Views")+
+                    ConverterUtil.emptyConvert(gitRepoDto.forks_count,"Total Fork")
+            binding.link.text = ConverterUtil.emptyConvert(gitRepoDto.html_url)
+            binding.description.text = ConverterUtil.emptyConvert(gitRepoDto.description)
             Glide.with(binding.root)
                 .load(gitRepoOwner?.avatar_url)
                 .transform(CircleCrop())

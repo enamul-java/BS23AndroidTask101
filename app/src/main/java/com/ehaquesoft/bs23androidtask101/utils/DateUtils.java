@@ -26,6 +26,11 @@ public class DateUtils {
         }
     }
 
+    /**
+     *
+     * @param sDate
+     * @return
+     */
     public static String convertDate(String sDate) {
         if (sDate.isEmpty())
             return "";
@@ -38,11 +43,20 @@ public class DateUtils {
 
     }
 
+    /**
+     * Conversion of Date to required format
+     * for lower version of android OS
+     * SuString the date value to get the target value
+     * @param sDate
+     * @return String type converted value
+     */
     private static String convertDateForLowerVersion(String sDate) {
         try {
-            sDate = sDate.substring(0, sDate.indexOf("T")+8);
-            sDate = sDate.replace("T", " ");
             //2017-04-26T20:55:00.000Z
+            if(sDate.indexOf("T")>0) {
+                sDate = sDate.substring(0, sDate.indexOf("T") + 8);
+                sDate = sDate.replace("T", " ");
+            }
             return sDate;
         } catch (Exception e) {
             Log.e("Error", e.toString());
