@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 data class GitRepoRequestModel(
     val id: Int,
-    val searchQuery: String,
+    val searchQuery: String?,
     val sort: String?,
     val order: String?
 )

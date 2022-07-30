@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">BS23AndroidTask101</string>
+
+    <string name="nav_sort_stars">STARS</string>
+    <string name="nav_sort_forks">FORKS</string>
+    <string name="nav_sort_issue">HELP-WANTED-ISSUES</string>
+    <string name="nav_sort_updated">UPDATED</string>
+
+
+    <string name="dialog_search">Search</string>
+    <string name="dialog_cancel">Cancel</string>
+
 </resources>

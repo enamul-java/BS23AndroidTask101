@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.ehaquesoft.bs23androidtask101.data.dto.GitRepoDto
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepo
 import com.ehaquesoft.bs23androidtask101.databinding.ItemGitrepoBinding
+import com.ehaquesoft.bs23androidtask101.utils.DateUtils
 
 class GitReposAdapter(private val listener: GitReposItemListener) : RecyclerView.Adapter<GitReposViewHolder>() {
 
@@ -50,9 +51,9 @@ class GitReposViewHolder(private val itemBinding: ItemGitrepoBinding, private va
     fun bind(item: GitRepo) {
         this.gitRepo = item
         itemBinding.name.text = item.name
-        //itemBinding.speciesAndStatus.text = """${item.species} - ${item.status}"""
+        itemBinding.speciesAndStatus.text = DateUtils.convertDate(item.updated_at)
         Glide.with(itemBinding.root)
-            .load("https://avatars.githubusercontent.com/u/8892251?v=4")
+            .load("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
             .transform(CircleCrop())
             .into(itemBinding.image)
     }

@@ -7,5 +7,6 @@ class GitRepoRemoteDataSource @Inject constructor(
 ): BaseDataSource() {
 
     suspend fun getGitRepos(searchQuery:String) = getResult { gitRepoService.getAllGitRepo(searchQuery,"updated","desc") }
+    suspend fun getGitRepos(searchQuery:String, sort:String) = getResult { gitRepoService.getAllGitRepo(searchQuery,sort,"desc") }
     suspend fun getGitRepos() = getResult { gitRepoService.getAllGitRepo("Android","updated","desc") }
 }

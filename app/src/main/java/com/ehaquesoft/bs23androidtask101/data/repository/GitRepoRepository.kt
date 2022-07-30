@@ -16,6 +16,12 @@ class GitRepoRepository @Inject constructor(
         saveCallResult = { localDataSource.insertAll(it.items) }
     )
 
+
+    fun getGitRepos(searchQuery: String, sort:String) = performGetOperation(
+        databaseQuery = { localDataSource.getAllGitRepos() },
+        networkCall = { remoteDataSource.getGitRepos(searchQuery) },
+        saveCallResult = { localDataSource.insertAll(it.items) }
+    )
     fun getGitRepos() = performGetOperation(
         databaseQuery = { localDataSource.getAllGitRepos() },
         networkCall = { remoteDataSource.getGitRepos() },

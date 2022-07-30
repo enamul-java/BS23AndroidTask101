@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/stars"
+        android:title="@string/nav_sort_stars" />
+    <item
+        android:id="@+id/forks"
+        android:title="@string/nav_sort_forks" />
+    <item
+        android:id="@+id/issue"
+        android:title="@string/nav_sort_issue" />
+    <item
+        android:id="@+id/update"
+        android:title="@string/nav_sort_updated" />
+</menu>
