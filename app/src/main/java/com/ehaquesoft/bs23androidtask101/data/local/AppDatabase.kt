@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepo
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepoOwner
 
-@Database(entities = [GitRepo::class,GitRepoOwner::class], version = 2, exportSchema = false)
+@Database(entities = [GitRepo::class,GitRepoOwner::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun gitRepoDao(): GitRepoDao

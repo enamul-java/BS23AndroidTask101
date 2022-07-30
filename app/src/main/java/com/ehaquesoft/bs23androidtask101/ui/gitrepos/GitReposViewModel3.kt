@@ -19,7 +19,7 @@ class GitReposViewModel3 @ViewModelInject constructor(
     private val _searchQueary = MutableLiveData<GitRepoRequestModel>()
 
     private val _gitRepositoryList = _searchQueary.switchMap { searchQuery ->
-        repository.getGitRepos(searchQuery.searchQuery!!, searchQuery.sort!!)
+        repository.getGitReposWithParam(searchQuery.searchQuery!!, searchQuery.sort!!)
     }
     val gitRepos: LiveData<Resource<List<GitRepo>>> = _gitRepositoryList
 

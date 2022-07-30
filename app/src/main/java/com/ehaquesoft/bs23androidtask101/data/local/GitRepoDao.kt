@@ -13,6 +13,9 @@ interface GitRepoDao {
     @Query("SELECT * FROM gitrepo")
     fun getAllGitRepos() : LiveData<List<GitRepo>>
 
+    @Query("SELECT * FROM gitrepo WHERE search_query = :search_query AND sort = :sort")
+    fun getAllGitRepos(search_query: String, sort:String) : LiveData<List<GitRepo>>
+
     @Query("SELECT * FROM gitrepo WHERE id = :id")
     fun getGitRepo(id: Int): LiveData<GitRepo>
 

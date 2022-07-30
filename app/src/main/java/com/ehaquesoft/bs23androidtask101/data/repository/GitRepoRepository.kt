@@ -20,7 +20,22 @@ class GitRepoRepository @Inject constructor(
     fun getGitRepos(searchQuery: String, sort:String) = performGetOperation(
         databaseQuery = { localDataSource.getAllGitRepos() },
         networkCall = { remoteDataSource.getGitRepos(searchQuery) },
-        saveCallResult = { localDataSource.insertAll(it.items) }
+        saveCallResult = {
+            localDataSource.insertAll(it.items)
+        }
+    )
+
+    fun getGitReposWithParam(searchQuery: String, sort:String) = performGetOperation(
+        databaseQuery = { localDataSource.getAllGitRepos(searchQuery, sort) },
+        networkCall = { remoteDataSource.getGitRepos(searchQuery) },
+        saveCallResult = {
+            for(i in 0 until it.items.size) {
+                var repo = it.items.get(i)
+                repo.search_query = searchQuery
+                repo.sort = sort
+                localDataSource.insert(repo)
+            }
+        }
     )
     fun getGitRepos() = performGetOperation(
         databaseQuery = { localDataSource.getAllGitRepos() },
