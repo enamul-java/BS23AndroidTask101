@@ -137,7 +137,7 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
 
     private fun setupRecyclerView() {
 
-        clearTempList()
+        //clearTempList()
 
         adapter = GitReposAdapter(this)
         var layoutManager = LinearLayoutManager(requireContext())
@@ -147,7 +147,8 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
         binding.gitRepoRv.layoutManager
         binding.gitRepoRv.adapter = adapter
 
-
+        /*
+        //Loading 10 items every scroll ends
         binding.gitRepoRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -176,6 +177,7 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
                 }
             }
         })
+        */
     }
 
     var sizeOfDataAdded = 0
@@ -207,8 +209,8 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
-                    //if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
-                    if (!it.data.isNullOrEmpty()) setItem(it.data)
+                    if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+                    //if (!it.data.isNullOrEmpty()) setItem(it.data)
                 }
                 Resource.Status.ERROR ->
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
