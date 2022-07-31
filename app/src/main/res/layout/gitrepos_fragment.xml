@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/characters_rv"
+            android:id="@+id/git_repo_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,9 +34,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/characters_rv"
+            app:layout_constraintBottom_toBottomOf="@+id/git_repo_rv"
             android:gravity="center_vertical|center_horizontal|end"
             android:layout_gravity="end">
+
+
 
             <TextView
                 android:id="@+id/sort_text"
@@ -61,6 +63,28 @@
                 android:drawableTop="@android:drawable/ic_menu_search"
                 android:drawableTint="@android:color/holo_green_dark"
                 android:text="Search"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/git_repo_rv"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_gravity="end">
+
+            <ProgressBar
+                android:id="@+id/progress_at_scroll_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:indeterminate="true"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -27,6 +28,12 @@ class GitReposAdapter(private val listener: GitReposItemListener) : RecyclerView
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
+    }
+
+    fun addItems(items: ArrayList<GitRepo>) {
+        for(i in 0 until items.size) {
+            this.items.add(items.get(i))
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GitReposViewHolder {

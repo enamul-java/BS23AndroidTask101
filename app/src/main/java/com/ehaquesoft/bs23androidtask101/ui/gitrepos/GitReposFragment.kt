@@ -1,7 +1,6 @@
 package com.ehaquesoft.bs23androidtask101.ui.gitrepos
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ehaquesoft.bs23androidtask101.R
 import com.ehaquesoft.bs23androidtask101.data.dto.GitRepoDto
 import com.ehaquesoft.bs23androidtask101.data.entities.GitRepo
@@ -23,6 +23,7 @@ import com.ehaquesoft.bs23androidtask101.utils.Resource
 import com.ehaquesoft.bs23androidtask101.utils.autoCleared
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
@@ -135,9 +136,70 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
     }
 
     private fun setupRecyclerView() {
+
+        clearTempList()
+
         adapter = GitReposAdapter(this)
-        binding.charactersRv.layoutManager = LinearLayoutManager(requireContext())
-        binding.charactersRv.adapter = adapter
+        var layoutManager = LinearLayoutManager(requireContext())
+        //var layoutManager = SnappingLinearLayoutManager(requireContext())
+        //layoutManager.scrollToPositionWithOffset(0, 20);
+        binding.gitRepoRv.layoutManager = layoutManager
+        binding.gitRepoRv.layoutManager
+        binding.gitRepoRv.adapter = adapter
+
+
+        binding.gitRepoRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    Toast.makeText(requireContext(), "Please Wait Loading Net 10 Items... ", Toast.LENGTH_LONG).show()
+                    //binding.progressAtScrollEnd.visibility = View.VISIBLE
+                    try {
+                        clearTempList()
+                        if(sizeOfDataAdded+10<=originalData.size){
+                            for(i in sizeOfDataAdded until sizeOfDataAdded+10){
+                                tempListData.add(originalData.get(i))
+                            }
+                            addItem()
+                        }else{
+                            for(i in sizeOfDataAdded until originalData.size){
+                                tempListData.add(originalData.get(i))
+                            }
+                            addItem()
+                        }
+
+                    }catch (e:Exception){
+
+                    }
+                }else{
+                    //binding.progressAtScrollEnd.visibility = View.GONE
+                }
+            }
+        })
+    }
+
+    var sizeOfDataAdded = 0
+    lateinit var originalData:List<GitRepo>
+    lateinit var tempListData:ArrayList<GitRepo>
+
+    fun clearTempList(){
+        try { tempListData.clear() }catch (e:Exception){}
+        tempListData = ArrayList<GitRepo>()
+    }
+
+    fun addItem(){
+        adapter.addItems(tempListData)
+    }
+    fun setItem(data: List<GitRepo>){
+
+        clearTempList()
+
+        sizeOfDataAdded = 10
+        originalData = data
+        for(i in 0 until sizeOfDataAdded){
+            tempListData.add(originalData.get(i))
+        }
+        adapter.setItems(tempListData)
     }
 
     private fun setupObservers() {
@@ -145,7 +207,8 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
-                    if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+                    //if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
+                    if (!it.data.isNullOrEmpty()) setItem(it.data)
                 }
                 Resource.Status.ERROR ->
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
@@ -155,14 +218,6 @@ class GitReposFragment : Fragment(), GitReposAdapter.GitReposItemListener {
             }
         })
     }
-
-    /*
-    override fun onClickedGitRepo(gitRepoId: Int, owner:String, repo:String) {
-        findNavController().navigate(
-            R.id.action_gitReposFragment_to_gitRepoDetailFragment,
-            bundleOf("id" to gitRepoId, "owner" to owner, "repo" to repo)
-        )
-    }*/
 
     override fun onClickedGitRepo(gitRepoDto: GitRepoDto) {
         findNavController().navigate(
