@@ -12,6 +12,10 @@ the following Architecture Components:
  - Data Binding
  - Navigation
  - Room
+ 
+ ### Screenshots
+ ![Page1](https://user-images.githubusercontent.com/7429406/182011605-f3045ad3-5b1b-4f9e-9f60-c5a9dba120ac.jpeg)
+
 
 ### Thanks
 
